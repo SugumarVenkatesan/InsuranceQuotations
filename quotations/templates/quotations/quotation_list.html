@@ -1,0 +1,45 @@
+{% extends 'quotations/base.html' %}
+
+{% block title %}My quotations {% endblock %}
+{% block content %}
+<form method="get" action="create">
+    <button type="submit" class="btn-lg btn-primary" name="newQuotation">Create new Quotation</button>
+</form>
+<br>
+{% if quotations %}
+<table class="table table-hover table-bordered">
+    <thead class="bg-primary">
+        <tr>
+            <th scope="col">Created</th>
+            <th scope="col">Year</th>
+            <th scope="col">Model</th>
+            <th scope="col">Number</th>
+            <th scope="col">Vehicle Price</th>
+            <th scope="col">Quotation Price</th>
+            <th scope="col">Coverage </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for q in quotations %}
+        <tr class="clickable" onclick="window.location='{{q.id}}'">
+            <td>{{q.short_creation_date}}</td>
+            <td>{{q.vehicleYearMake}}</td>
+            <td>{{q.vehicleModel}}</td>
+            <td>{{q.vehicleNumber}}</td>
+            <td>{{q.vehiclePrice}}</td>
+            <td>{{q.quotationPrice}}</td>
+            <td>
+                <ul>
+                    {% if q.covWind %}<li>Wind</li>{% endif %}
+                    {% if q.covPass %}<li>Passangers</li>{% endif %}
+                    {% if q.covFlood %}<li>Flood...</li>{% endif %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor%}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}
